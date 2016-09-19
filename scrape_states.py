@@ -22,11 +22,11 @@ def get_states():
 
         # get the state name
         state_name = p_list[0].text
-        state_name = state_name.split(':')[-1].strip()
+        state_name = state_name.split(':')[-1].strip().lower()
 
         # get the state capital
         state_capital = p_list[1].text
-        state_capital = state_capital.split(':')[-1].strip()
+        state_capital = state_capital.split(':')[-1].strip().lower()
 
         # get the state longitude and latitude
         state_capital_long = p_list[2].text
@@ -45,6 +45,11 @@ def write_to_csv(state_info):
     # open the csv file to write to
     with open('state_capital_coords.csv', 'w', newline='') as csvfile:
         state_writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+        
+        # write the headings row
+        state_writer.writerow(['state', 'capital', 'latitude', 'longitude'])
+        
+        # write the rest of the info
         for state in state_info:
             state_writer.writerow(state)
 
